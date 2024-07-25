@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\City;
 use Illuminate\Http\Request;
+use App\Models\City;
 
 class PageController extends Controller
 {
-    public function index()
+    public function index(City $city = null)
     {
-        $cities = City::all();
-        $currentCity = session('city');
-        return view('index', compact('cities', 'currentCity'));
-    }
+        if ($city) {
+            session(['city' => $city->slug]);
+        } else {
+            $citySlug = session('city');
+            $city = City::where('slug', $citySlug)->first();
+        }
 
-    public function city(City $city)
-    {
-        session(['city' => $city->slug]);
-        return redirect()->route('index');
+        $cities = City::all();
+        $currentCity = $city;
+
+        return view('index', compact('cities', 'currentCity'));
     }
 
     public function about(City $city)

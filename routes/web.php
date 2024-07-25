@@ -15,8 +15,9 @@ use App\Http\Controllers\PageController;
 |
 */
 
-Route::get('/', [PageController::class, 'index']);
-Route::get('/{city:slug}', [PageController::class, 'city'])->name('city.show');
+Route::get('/', [PageController::class, 'index'])->name('index');
+Route::post('/set-city', [CityController::class, 'setCity'])->name('set-city');
+
+Route::get('/{city:slug}', [PageController::class, 'index'])->name('city.show');
 Route::get('/{city:slug}/about', [PageController::class, 'about'])->name('about');
 Route::get('/{city:slug}/news', [PageController::class, 'news'])->name('news');
-Route::post('/set-city', [CityController::class, 'setCity'])->name('set-city');

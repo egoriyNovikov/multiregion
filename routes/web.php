@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PageController::class, 'index']);
+Route::get('/{city:slug}', [PageController::class, 'city'])->name('city.show');
+Route::get('/{city:slug}/about', [PageController::class, 'about'])->name('about');
+Route::get('/{city:slug}/news', [PageController::class, 'news'])->name('news');
+Route::post('/set-city', [CityController::class, 'setCity'])->name('set-city');

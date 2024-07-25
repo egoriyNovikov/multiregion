@@ -13,8 +13,13 @@ class RedirectIfCitySet
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
+        if ($request->path() === '/' && session()->has('city')) {
+            $city = session('city');
+            return redirect("/$city");
+        }
+
         return $next($request);
     }
 }

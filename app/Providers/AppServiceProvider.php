@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use App\Services\CityService;
+use App\Services\PageService;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,6 +12,9 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(CityService::class, function ($app) {
             return new CityService();
+        });
+        $this->app->singleton(PageService::class, function ($app) {
+            return new PageService();
         });
     }
 

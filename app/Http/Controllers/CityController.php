@@ -4,30 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use Illuminate\Http\Request;
+use App\Services\CityService;
 
 class CityController extends Controller
 {
+    protected $cityService;
+
+    public function __construct(CityService $cityService)
+    {
+        $this->cityService = $cityService;
+    }
+
     public function setCity(Request $request)
     {
-        $city = City::where('slug', $request->city)->firstOrFail();
-        session(['city' => $city->slug]);
+        $this->cityService->setCity($request->city);
         return redirect()->back();
     }
+
     public function destroy(City $city)
     {
-        $city->delete();
+        $this->cityService->destroy($city);
         return response()->json(['message' => 'City deleted successfully']);
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:cities',
-        ]);
-
-        $city = City::create($validated);
-
+        $city = $this->cityService->store($request);
         return response()->json(['message' => 'City created successfully', 'city' => $city]);
     }
 }

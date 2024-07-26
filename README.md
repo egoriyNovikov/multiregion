@@ -24,3 +24,7 @@ php artisan load:cities
 ```
 php artisan serve
 ```
+### API
+API тестировал через postman
+http://127.0.0.1:8000/api/cities - POST, с параметрами name, slug
+http://127.0.0.1:8000/api/cities/id - DELETE  

@@ -13,12 +13,14 @@ class SetCity
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        if (!$request->route('city') && session()->has('city')) {
-            return redirect()->route('city.show', session('city'));
+        if (!$request->session()->has('city')) {
+            $city = $request->route('city');
+            if ($city) {
+                $request->session()->put('city', $city->slug);
+            }
         }
-
         return $next($request);
     }
 }

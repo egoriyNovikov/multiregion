@@ -10,10 +10,15 @@
 <body>
     <header>
         <h1>Текущий город: {{ $city->name }}</h1>
-        <a href="{{ route('index') }}">На главную</a>
+        <nav>
+            <ul>
+                <li><a href="{{ \App\Helpers\CityHelper::route('index') }}">На главную</a></li>
+                <li><a href="{{ \App\Helpers\CityHelper::route('news') }}">Новости</a></li>
+            </ul>
+        </nav>
     </header>
     <main>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <b>{{ $city->slug }}</b></p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </main>
 </body>
 

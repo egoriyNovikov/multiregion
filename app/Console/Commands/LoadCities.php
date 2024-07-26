@@ -28,7 +28,7 @@ class LoadCities extends Command
     public function handle()
     {
         $response = Http::withOptions([
-            'verify' => 'C:\MAMP\cacert.pem',
+            'verify' => 'cacert.pem',
         ])->get('https://api.hh.ru/areas');
 
         $areas = $response->json();
